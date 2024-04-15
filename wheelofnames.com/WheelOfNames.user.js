@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         WheelOfNamesTimer
 // @namespace    http://rix0r.nl/
-// @version      0.0.1
+// @version      0.0.2
 // @description  Wheel Of Names
 // @author       Rico
 // @require      http://code.jquery.com/jquery-latest.js
@@ -10,8 +10,8 @@
 // ==/UserScript==
 $(function () {
     const SECONDS = 100;
-    let timer;
-    let startTime = 0;
+    let startTime;
+    setInterval(updateDisplay, 1000);
     $(document).on('click', 'button:contains("Remove")', function () {
         startTimer();
     });
@@ -22,17 +22,15 @@ $(function () {
         updateDisplay();
     }
     function updateDisplay() {
+        if (startTime === undefined) {
+            return;
+        }
         const secondsElapsed = Math.floor((Date.now() - startTime) / 1000);
         const secondsRemaining = Math.max(SECONDS - secondsElapsed, 0);
         $('#timer').text(`${secondsRemaining}`);
         $('#timer').toggleClass('chopchop', 10 < secondsRemaining && secondsRemaining <= 30);
         $('#timer').toggleClass('hurry', secondsRemaining <= 10);
-        if (secondsRemaining > 0) {
-            setInterval(updateDisplay, 1000);
-        }
-        else {
-            $('#timer').addClass('jello-horizontal');
-        }
+        $('#timer').toggleClass('jello-horizontal', secondsRemaining == 0);
     }
     //--- Style our newly added elements using CSS.
     GM_addStyle(`
