@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         QuickApprove
 // @namespace    http://rix0r.nl/
-// @version      0.0.2
+// @version      0.0.3
 // @description  Quickly Approve GitHub Deployments
 // @author       Rico
 // @require      http://code.jquery.com/jquery-latest.js
