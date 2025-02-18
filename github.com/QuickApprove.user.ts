@@ -1,14 +1,22 @@
 // ==UserScript==
 // @name         QuickApprove
 // @namespace    http://rix0r.nl/
-// @version      0.0.1
+// @version      0.0.2
 // @description  Quickly Approve GitHub Deployments
 // @author       Rico
 // @require      http://code.jquery.com/jquery-latest.js
 // @match        https://github.com/*
 // ==/UserScript==
 
-$(function() {
+// GitHub uses HotWire Turbo. This event indicates when the page
+// has refreshed. According to the docs <https://turbo.hotwired.dev/reference/events>
+// it should fire on real load and on boosted load, but in practice it only seems to
+// fire on boosted loads.
+document.addEventListener('turbo:load', () => {
+  findApprovalLinks();
+});
+
+function findApprovalLinks() {
   // Find the bottom-most workflow approval link
   const approvalLinks = $('a[class="Link--secondary"]').filter((_, el) => {
     const href = $(el).attr('href');
@@ -55,7 +63,7 @@ $(function() {
       });
     }
   }));
-});
+}
 
 async function approveWorkflowRun(href: string) {
   console.log('Fetching', href);
