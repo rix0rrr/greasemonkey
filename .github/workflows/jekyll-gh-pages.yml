@@ -28,6 +28,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Do a TS build to make sure the .js files are always up-to-date
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: yarn install --check-files
+      - name: Compile TypeScript
+        run: npx tsc
+
+      # Publish pages using Jekyll
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
