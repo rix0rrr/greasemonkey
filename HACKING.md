@@ -24,7 +24,7 @@ change over time as they they include `@grant`s and `@match`es!
 // @description  CDK Workflow Enhancements for GitHub
 // @author       Rico
 // @require      http://code.jquery.com/jquery-latest.js
-// @require      file:///path/to/script/on/disk/scripts/CdkGitHubEnhancements.user.js
+// @require      file:///path/to/script/on/disk/scripts/CdkGitHubEnhancements.user.js <--- !!IMPORTANT!!
 // @match        https://github.com/*
 // @grant        GM.xmlHttpRequest
 // @grant        GM_addStyle
@@ -32,5 +32,4 @@ change over time as they they include `@grant`s and `@match`es!
 // @grant        GM.getValue
 // @grant        GM.setValue
 // ==/UserScript==
-startGitHubIntegration('USERNAME', 'GITHUB_TOKEN');
 ```
