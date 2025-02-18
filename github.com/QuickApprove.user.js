@@ -44,25 +44,22 @@ function findApprovalLinks() {
         return;
     }
     const buttonText = 'Quick Approve';
-    parent.append($('<button>').text(buttonText).css({
-        padding: '0px 5px',
-        fontSize: '0.9em',
-        background: 'oklch(0.945 0.129 101.54)',
-        borderRadius: 5,
-        borderWidth: 1,
-    }).on('click', (ev) => __awaiter(this, void 0, void 0, function* () {
+    parent.append($('<button>')
+        .text(buttonText)
+        .addClass("btn btn-sm float-right")
+        .on('click', (ev) => __awaiter(this, void 0, void 0, function* () {
         $(ev.target).text(`⏳ ${buttonText}`).attr('disabled', 'true');
         try {
             yield approveWorkflowRun(href);
-            $(ev.target).text(`✅ ${buttonText}`).css({
-                background: 'oklch(0.938 0.127 124.321)',
-            });
+            $(ev.target).text(`✅ ${buttonText}`)
+                .removeClass("Button--danger")
+                .addClass("Button--primary");
         }
         catch (e) {
             console.error(e);
-            $(ev.target).text(`❌ ${buttonText}`).css({
-                background: 'oklch(0.885 0.062 18.334)',
-            });
+            $(ev.target).text(`❌ ${buttonText}`)
+                .removeClass("Button--primary")
+                .addClass("Button--danger");
         }
     })));
 }

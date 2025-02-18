@@ -43,26 +43,23 @@ function findApprovalLinks() {
 
   const buttonText = 'Quick Approve';
 
-  parent.append($('<button>').text(buttonText).css({
-    padding: '0px 5px',
-    fontSize: '0.9em',
-    background: 'oklch(0.945 0.129 101.54)',
-    borderRadius: 5,
-    borderWidth: 1,
-  }).on('click', async (ev) => {
-    $(ev.target).text(`⏳ ${buttonText}`).attr('disabled', 'true');
-    try {
-      await approveWorkflowRun(href);
-      $(ev.target).text(`✅ ${buttonText}`).css({
-        background: 'oklch(0.938 0.127 124.321)',
-      })
-    } catch (e) {
-      console.error(e);
-      $(ev.target).text(`❌ ${buttonText}`).css({
-        background: 'oklch(0.885 0.062 18.334)',
-      });
-    }
-  }));
+  parent.append($('<button>')
+    .text(buttonText)
+    .addClass("btn btn-sm float-right")
+    .on('click', async (ev) => {
+      $(ev.target).text(`⏳ ${buttonText}`).attr('disabled', 'true');
+      try {
+        await approveWorkflowRun(href);
+        $(ev.target).text(`✅ ${buttonText}`)
+          .removeClass("Button--danger")
+          .addClass("Button--primary");
+      } catch (e) {
+        console.error(e);
+        $(ev.target).text(`❌ ${buttonText}`)
+          .removeClass("Button--primary")
+          .addClass("Button--danger");
+      }
+    }));
 }
 
 async function approveWorkflowRun(href: string) {
